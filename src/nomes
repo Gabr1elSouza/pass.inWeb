@@ -1,7 +1,4 @@
-import React, { useEffect, useState } from "react";
-
-const names = [
-  "ALBERTO MARIO GRISELLI",
+"ALBERTO MARIO GRISELLI",
 "AUANA MATTAR LIMA",
 "VICENTE DE MORAES FERREIRA",
 "MARCO DI COSTANZO",
@@ -1155,53 +1152,3 @@ const names = [
 "Rodrigo Kwee de França"  ,
 "Camilo Bistulfi Reis"  ,
 "Marcus Vinicius Fernandes Vieira Filho"  
-].sort();
-
-export function App() {
-  const [search, setSearch] = useState("");
-  const [attendance, setAttendance] = useState(() => {
-    // Recupera o estado salvo do localStorage ao montar o componente
-    const savedAttendance = localStorage.getItem("attendance");
-    return savedAttendance ? JSON.parse(savedAttendance) : {};
-  });
-
-  const handleToggle = (name) => {
-    // Alterna o estado do nome e salva imediatamente no localStorage
-    setAttendance((prev) => {
-      const updatedAttendance = {
-        ...prev,
-        [name]: !prev[name],
-      };
-      localStorage.setItem("attendance", JSON.stringify(updatedAttendance));
-      return updatedAttendance;
-    });
-  };
-
-  const filteredNames = names.filter((name) =>
-    name.toLowerCase().includes(search.toLowerCase())
-  );
-
-  return (
-    <div className="p-5 font-sans">
-      <h1 className="text-2xl font-bold mb-4">Lista de Presença</h1>
-      <input
-        type="text"
-        placeholder="Buscar nome..."
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        className="w-full p-2 mb-4 border border-gray-300 rounded bg-transparent"
-      />
-      <ul className="list-none p-0">
-        {filteredNames.map((name) => (
-          <li key={name} className="mb-2">
-            <label className="flex items-center cursor-pointer" onClick={() => handleToggle(name)}>
-              <span style={{ textDecoration: attendance[name] ? "line-through" : "none" }}>
-                {name}
-              </span>
-            </label>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
